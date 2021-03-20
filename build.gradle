@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+}
+
+group 'org.seanhu93'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+    testCompileOnly 'org.projectlombok:lombok:1.18.16'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat "full"
+        events("skipped", "failed")
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        showStandardStreams = true
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+    }
+}
